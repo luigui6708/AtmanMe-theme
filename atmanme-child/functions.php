@@ -153,6 +153,8 @@ function atmanme_inject_reports_cta_js() {
     });
     </script>
     <?php
+}
+/**
  * Add loading="lazy" to Spotify iframes
  * Intercepts HTML output to inject the loading attribute.
  */
@@ -178,6 +180,8 @@ function atmanme_lazy_load_spotify_iframes( $buffer ) {
 
         return $matches[0]; // Return unmodified if already lazy loaded
     }, $buffer );
+}
+/**
  * Force English locale on frontend for UI texts
  */
 add_filter( 'locale', 'atmanme_force_english_locale' );
@@ -274,4 +278,49 @@ function atmanme_update_page_slugs() {
     }
 
     update_option( 'atmanme_slugs_updated_to_english', 1 );
+}
+
+/**
+ * Custom Yoast SEO Title & Meta Description Translations
+ */
+add_filter('wpseo_title', 'atmanme_custom_yoast_title', 10, 1);
+function atmanme_custom_yoast_title($title) {
+    if (is_page('astrology-reports') || (isset($_SERVER['REQUEST_URI']) && strpos($_SERVER['REQUEST_URI'], '/astrology-reports/') !== false)) {
+        return 'Free Astrology Reports, Natal Chart, Horoscope';
+    }
+
+    if (is_home() || is_page('blog') || (isset($_SERVER['REQUEST_URI']) && strpos($_SERVER['REQUEST_URI'], '/blog/') !== false)) {
+        return 'AtmanMe Blog - Wellness, Astrology & Personal Growth';
+    }
+
+    return $title;
+}
+
+add_filter('wpseo_metadesc', 'atmanme_custom_yoast_metadesc', 10, 1);
+function atmanme_custom_yoast_metadesc($desc) {
+    if (is_home() || is_page('blog') || (isset($_SERVER['REQUEST_URI']) && strpos($_SERVER['REQUEST_URI'], '/blog/') !== false)) {
+        return 'Explore the AtmanMe blog for insightful articles on wellness, astrology, personal growth, and self-discovery. Discover our guides for a balanced life.';
+    }
+    return $desc;
+}
+
+/**
+ * JS Injection for /astrology-reports/ H1 Translation
+ */
+add_action('wp_footer', 'atmanme_inject_astrology_reports_h1_js');
+function atmanme_inject_astrology_reports_h1_js() {
+    if (is_page('astrology-reports') || (isset($_SERVER['REQUEST_URI']) && strpos($_SERVER['REQUEST_URI'], '/astrology-reports/') !== false)) {
+        ?>
+        <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var h1s = document.getElementsByTagName('h1');
+            for (var i = 0; i < h1s.length; i++) {
+                if (h1s[i].innerText.includes('Informes') || h1s[i].innerText.includes('Astrologicos') || h1s[i].innerText.includes('Astrológicos')) {
+                    h1s[i].innerText = 'Free Astrology Reports - Natal Chart and Custom Horoscope';
+                }
+            }
+        });
+        </script>
+        <?php
+    }
 }
