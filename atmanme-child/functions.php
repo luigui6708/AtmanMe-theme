@@ -324,3 +324,44 @@ function atmanme_inject_astrology_reports_h1_js() {
         <?php
     }
 }
+
+/**
+ * Force SEO Title and Description on Blog Page via Output Buffering
+ * Overrides Yoast SEO inconsistent values on /blog/
+ */
+add_action('template_redirect', 'atmanme_start_blog_seo_buffering');
+function atmanme_start_blog_seo_buffering() {
+    if (!is_admin() && !is_feed()) {
+        ob_start('atmanme_force_blog_seo_tags');
+    }
+}
+
+function atmanme_force_blog_seo_tags($buffer) {
+    // Only apply on the blog page
+    $is_blog = is_page('blog') || (isset($_SERVER['REQUEST_URI']) && strpos($_SERVER['REQUEST_URI'], '/blog/') !== false);
+
+    if (!$is_blog) {
+        return $buffer;
+    }
+
+    $forced_title = 'AtmanMe Blog - Wellness, Astrology & Personal Growth | atmanme';
+    $forced_desc = 'Explore the AtmanMe blog for insightful articles on wellness, astrology, personal growth, and self-discovery. Discover our guides for a balanced life.';
+
+    // Replace <title>
+    $buffer = preg_replace('/<title>.*?<\/title>/is', '<title>' . $forced_title . '</title>', $buffer);
+
+    // Replace meta description content
+    $buffer = preg_replace_callback('/<meta[^>]+>/is', function($matches) use ($forced_desc) {
+        $meta = $matches[0];
+
+        // Check if it's a description meta tag
+        if (preg_match('/name=[\'"]description[\'"]/is', $meta)) {
+            // Replace the content attribute value
+            $meta = preg_replace('/(content=[\'"])[^\'"]*([\'"])/is', '$1' . $forced_desc . '$2', $meta);
+        }
+
+        return $meta;
+    }, $buffer);
+
+    return $buffer;
+}
