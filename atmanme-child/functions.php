@@ -1,6 +1,4 @@
 <?php
-/**
- * AtmanMe Child Theme Functions
  */
 
 // Enqueue parent theme styles
@@ -9,8 +7,6 @@ function atmanme_child_enqueue_styles() {
     wp_enqueue_style( 'inspiro-parent-style', get_template_directory_uri() . '/style.css' );
 }
 
-/**
- * Conditionally block Google Site Kit AdSense ads
  */
 add_filter( 'googlesitekit_adsense_tag_blocked', 'atmanme_block_adsense_non_posts' );
 function atmanme_block_adsense_non_posts( $blocked ) {
@@ -20,8 +16,6 @@ function atmanme_block_adsense_non_posts( $blocked ) {
     return $blocked;
 }
 
-/**
- * Handle custom URL for All Reports page without needing database entry
  */
 add_action('init', 'atmanme_all_reports_rewrite_rule');
 function atmanme_all_reports_rewrite_rule() {
@@ -65,8 +59,6 @@ function atmanme_all_reports_template_include($template) {
     return $template;
 }
 
-/**
- * Inject CTA button below Astrology reports on front page via custom shortcode
  * or by modifying the homepage template part. Since the user said the content might be in a template-part,
  * we should override the template part if it exists, or append a script to find and inject safely.
  * Since parsing HTML block content with regex is unsafe, we use JS injected via wp_footer,
@@ -104,8 +96,6 @@ function atmanme_cta_css() {
     }
 }
 
-/**
- * JS Injection for Front Page Reports CTA
  */
 add_action('wp_footer', 'atmanme_inject_reports_cta_js');
 function atmanme_inject_reports_cta_js() {
@@ -154,8 +144,6 @@ function atmanme_inject_reports_cta_js() {
     </script>
     <?php
 }
-/**
- * Add loading="lazy" to Spotify iframes
  * Intercepts HTML output to inject the loading attribute.
  */
 add_action( 'template_redirect', 'atmanme_start_output_buffering' );
@@ -181,8 +169,6 @@ function atmanme_lazy_load_spotify_iframes( $buffer ) {
         return $matches[0]; // Return unmodified if already lazy loaded
     }, $buffer );
 }
-/**
- * Force English locale on frontend for UI texts
  */
 add_filter( 'locale', 'atmanme_force_english_locale' );
 function atmanme_force_english_locale( $locale ) {
@@ -192,8 +178,6 @@ function atmanme_force_english_locale( $locale ) {
     return $locale;
 }
 
-/**
- * Update navigation menu labels and URLs to English
  */
 add_filter( 'wp_nav_menu_objects', 'atmanme_update_nav_menu', 10, 2 );
 function atmanme_update_nav_menu( $items, $args ) {
@@ -228,8 +212,6 @@ function atmanme_update_nav_menu( $items, $args ) {
     return $items;
 }
 
-/**
- * Redirect Spanish slugs to English slugs with 301 Permanent Redirect
  */
 add_action( 'template_redirect', 'atmanme_redirect_spanish_slugs' );
 function atmanme_redirect_spanish_slugs() {
@@ -251,8 +233,6 @@ function atmanme_redirect_spanish_slugs() {
     }
 }
 
-/**
- * One-off script to update Spanish page slugs to English
  */
 add_action( 'init', 'atmanme_update_page_slugs' );
 function atmanme_update_page_slugs() {
@@ -280,8 +260,6 @@ function atmanme_update_page_slugs() {
     update_option( 'atmanme_slugs_updated_to_english', 1 );
 }
 
-/**
- * Custom Yoast SEO Title & Meta Description Translations
  */
 add_filter('wpseo_title', 'atmanme_custom_yoast_title', 10, 1);
 function atmanme_custom_yoast_title($title) {
@@ -304,8 +282,6 @@ function atmanme_custom_yoast_metadesc($desc) {
     return $desc;
 }
 
-/**
- * JS Injection for /astrology-reports/ H1 Translation
  */
 add_action('wp_footer', 'atmanme_inject_astrology_reports_h1_js');
 function atmanme_inject_astrology_reports_h1_js() {
@@ -325,43 +301,56 @@ function atmanme_inject_astrology_reports_h1_js() {
     }
 }
 
-/**
- * Force SEO Title and Description on Blog Page via Output Buffering
- * Overrides Yoast SEO inconsistent values on /blog/
+
+ * Overrides Yoast SEO inconsistent values on all pages by extracting og:title and og:description
  */
-add_action('template_redirect', 'atmanme_start_blog_seo_buffering');
-function atmanme_start_blog_seo_buffering() {
+add_action('template_redirect', 'atmanme_start_seo_sync_buffering');
+function atmanme_start_seo_sync_buffering() {
     if (!is_admin() && !is_feed()) {
-        ob_start('atmanme_force_blog_seo_tags');
+        ob_start('atmanme_sync_seo_tags_from_og');
     }
 }
 
-function atmanme_force_blog_seo_tags($buffer) {
-    // Only apply on the blog page
-    $is_blog = is_page('blog') || (isset($_SERVER['REQUEST_URI']) && strpos($_SERVER['REQUEST_URI'], '/blog/') !== false);
+function atmanme_sync_seo_tags_from_og($buffer) {
+    // Extract og:title using backreferences for quotes
+    if (preg_match('/<meta[^>]*?property=[\'"]og:title[\'"][^>]*?content=([\'"])(.*?)\1[^>]*>/is', $buffer, $title_matches) ||
+        preg_match('/<meta[^>]*?content=([\'"])(.*?)\1[^>]*?property=[\'"]og:title[\'"][^>]*>/is', $buffer, $title_matches)) {
 
-    if (!$is_blog) {
-        return $buffer;
+        $og_title = $title_matches[2];
+
+        // Ensure it is not empty
+        if (!empty(trim($og_title))) {
+            $escaped_title = addcslashes($og_title, '\\$');
+            $buffer = preg_replace('/<title>.*?<\/title>/is', '<title>' . $escaped_title . '</title>', $buffer);
+        }
     }
 
-    $forced_title = 'AtmanMe Blog - Wellness, Astrology & Personal Growth | atmanme';
-    $forced_desc = 'Explore the AtmanMe blog for insightful articles on wellness, astrology, personal growth, and self-discovery. Discover our guides for a balanced life.';
+    // Extract og:description using backreferences for quotes
+    if (preg_match('/<meta[^>]*?property=[\'"]og:description[\'"][^>]*?content=([\'"])(.*?)\1[^>]*>/is', $buffer, $desc_matches) ||
+        preg_match('/<meta[^>]*?content=([\'"])(.*?)\1[^>]*?property=[\'"]og:description[\'"][^>]*>/is', $buffer, $desc_matches)) {
 
-    // Replace <title>
-    $buffer = preg_replace('/<title>.*?<\/title>/is', '<title>' . $forced_title . '</title>', $buffer);
+        $og_desc = $desc_matches[2];
 
-    // Replace meta description content
-    $buffer = preg_replace_callback('/<meta[^>]+>/is', function($matches) use ($forced_desc) {
-        $meta = $matches[0];
-
-        // Check if it's a description meta tag
-        if (preg_match('/name=[\'"]description[\'"]/is', $meta)) {
-            // Replace the content attribute value
-            $meta = preg_replace('/(content=[\'"])[^\'"]*([\'"])/is', '$1' . $forced_desc . '$2', $meta);
+        // Ensure it is not empty
+        if (!empty(trim($og_desc))) {
+            $buffer = preg_replace_callback('/<meta[^>]+>/is', function($matches) use ($og_desc) {
+                $meta = $matches[0];
+                if (preg_match('/name=[\'"]description[\'"]/is', $meta)) {
+                    $meta = preg_replace_callback('/(content=([\'"]))(.*?)\2/is', function($m) use ($og_desc) {
+                        $quote = $m[2];
+                        $escaped = $og_desc;
+                        if ($quote === '"') {
+                            $escaped = str_replace('"', '&quot;', $og_desc);
+                        } else {
+                            $escaped = str_replace("'", '&#039;', $og_desc);
+                        }
+                        return $m[1] . $escaped . $quote;
+                    }, $meta);
+                }
+                return $meta;
+            }, $buffer);
         }
-
-        return $meta;
-    }, $buffer);
+    }
 
     return $buffer;
 }
