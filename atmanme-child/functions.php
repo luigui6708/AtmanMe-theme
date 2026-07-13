@@ -459,3 +459,62 @@ function atmanme_handle_carta_astral_submission() {
         wp_die( 'Failed to save lead.' );
     }
 }
+ * Archetype Quiz - Register Custom Post Type for Leads
+ */
+function atmanme_register_quiz_lead_cpt() {
+    $args = array(
+        'label'               => 'Quiz Leads',
+        'description'         => 'Leads captured from the Archetype Quiz',
+        'public'              => false, // Keep it private
+        'show_ui'             => true,
+        'show_in_menu'        => true,
+        'capability_type'     => 'post',
+        'supports'            => array('title'), // Title will be the email
+        'hierarchical'        => false,
+        'menu_position'       => 20,
+        'menu_icon'           => 'dashicons-email-alt',
+        'show_in_rest'        => false,
+    );
+    register_post_type('quiz_lead', $args);
+}
+add_action('init', 'atmanme_register_quiz_lead_cpt');
+
+/**
+ * Archetype Quiz - Handle AJAX form submission
+ */
+function atmanme_handle_quiz_lead_submission() {
+    // Check nonce
+    if ( ! isset( $_POST['quiz_nonce'] ) || ! wp_verify_nonce( $_POST['quiz_nonce'], 'submit_quiz_lead' ) ) {
+        wp_send_json_error( array( 'message' => 'Invalid nonce.' ) );
+    }
+
+    $email = isset( $_POST['email'] ) ? sanitize_email( $_POST['email'] ) : '';
+    $archetype = isset( $_POST['archetype'] ) ? sanitize_text_field( $_POST['archetype'] ) : '';
+
+    if ( ! is_email( $email ) ) {
+        wp_send_json_error( array( 'message' => 'Invalid email address.' ) );
+    }
+
+    // TODO: Connect real email provider (Mailchimp/Klaviyo) here in the future
+    // Example: send_to_mailchimp($email, $archetype);
+
+    // Save as Custom Post Type
+    $post_data = array(
+        'post_title'    => $email,
+        'post_type'     => 'quiz_lead',
+        'post_status'   => 'publish',
+        'meta_input'    => array(
+            'archetype' => $archetype,
+        ),
+    );
+
+    $post_id = wp_insert_post( $post_data );
+
+    if ( is_wp_error( $post_id ) ) {
+        wp_send_json_error( array( 'message' => 'Failed to save lead.' ) );
+    }
+
+    wp_send_json_success( array( 'message' => 'Lead saved successfully.' ) );
+}
+add_action('wp_ajax_atmanme_save_quiz_lead', 'atmanme_handle_quiz_lead_submission');
+add_action('wp_ajax_nopriv_atmanme_save_quiz_lead', 'atmanme_handle_quiz_lead_submission');
