@@ -395,3 +395,67 @@ function atmanme_redirect_old_author_url() {
 //
 // Require JSON-LD Schema file
 require_once get_stylesheet_directory() . '/inc/schema.php';
+
+/**
+ * Register Custom Post Type for Carta Astral Leads
+ */
+add_action( 'init', 'atmanme_register_carta_astral_lead_cpt' );
+function atmanme_register_carta_astral_lead_cpt() {
+    $args = array(
+        'label'               => 'Carta Astral Leads',
+        'public'              => false,
+        'show_ui'             => true,
+        'show_in_menu'        => true,
+        'capability_type'     => 'post',
+        'hierarchical'        => false,
+        'supports'            => array( 'title', 'custom-fields' ),
+        'menu_icon'           => 'dashicons-star-filled',
+    );
+    register_post_type( 'carta_astral_lead', $args );
+}
+
+/**
+ * Handle Carta Astral Form Submission
+ */
+add_action( 'admin_post_nopriv_submit_carta_astral_form', 'atmanme_handle_carta_astral_submission' );
+add_action( 'admin_post_submit_carta_astral_form', 'atmanme_handle_carta_astral_submission' );
+function atmanme_handle_carta_astral_submission() {
+    if ( ! isset( $_POST['carta_astral_nonce'] ) || ! wp_verify_nonce( $_POST['carta_astral_nonce'], 'submit_carta_astral' ) ) {
+        wp_die( 'Security check failed.' );
+    }
+
+    $fecha = sanitize_text_field( $_POST['ca_fecha'] );
+    $hora  = sanitize_text_field( $_POST['ca_hora'] );
+    $lugar = sanitize_text_field( $_POST['ca_lugar'] );
+
+    if ( empty( $fecha ) || empty( $hora ) || empty( $lugar ) ) {
+        wp_die( 'Please fill all required fields.' );
+    }
+
+    // Insert lead as custom post type
+    $post_id = wp_insert_post( array(
+        'post_title'  => 'Lead: ' . $fecha . ' ' . $hora,
+        'post_type'   => 'carta_astral_lead',
+        'post_status' => 'private',
+        'meta_input'  => array(
+            'fecha_nacimiento' => $fecha,
+            'hora_nacimiento'  => $hora,
+            'lugar_nacimiento' => $lugar,
+        ),
+    ) );
+
+    if ( ! is_wp_error( $post_id ) ) {
+        // TODO: In the future, connect to astrology calculation service here
+        // Example: atmanme_generate_astrology_chart($fecha, $hora, $lugar);
+
+        $redirect_url = wp_get_referer();
+        if ( ! $redirect_url ) {
+            $redirect_url = home_url( '/' );
+        }
+        $redirect_url = add_query_arg( 'success', '1', $redirect_url );
+        wp_safe_redirect( $redirect_url . '#carta-astral-form' );
+        die();
+    } else {
+        wp_die( 'Failed to save lead.' );
+    }
+}

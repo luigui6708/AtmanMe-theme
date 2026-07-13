@@ -105,16 +105,63 @@ function atmanme_inject_schema_json_ld() {
 
     // 3. FAQPage Schema
     // Extract FAQs from content if any
-    if ( is_singular() ) {
+    if ( is_singular() || is_page_template( 'page-cartas-astrales.php' ) ) {
         global $post;
+
+        // For custom page template, we might read the file or output buffer,
+        // but since we hardcoded HTML in the template, it's not in $post->post_content.
+        // We will manually inject the FAQ schema for this template.
+        if ( is_page_template( 'page-cartas-astrales.php' ) ) {
+            $faqs = [
+                [
+                    '@type' => 'Question',
+                    'name'  => '¿Necesito saber mi hora exacta de nacimiento?',
+                    'acceptedAnswer' => [
+                        '@type' => 'Answer',
+                        'text'  => 'Sí, la hora exacta es fundamental para calcular tu ascendente y las casas astrológicas con precisión.'
+                    ]
+                ],
+                [
+                    '@type' => 'Question',
+                    'name'  => '¿Qué pasa si no sé mi hora de nacimiento?',
+                    'acceptedAnswer' => [
+                        '@type' => 'Answer',
+                        'text'  => 'Puedes solicitar una carta solar o intentar obtener tu partida de nacimiento donde suele estar registrada.'
+                    ]
+                ],
+                [
+                    '@type' => 'Question',
+                    'name'  => '¿Cuánto tarda en llegar la Carta Premium?',
+                    'acceptedAnswer' => [
+                        '@type' => 'Answer',
+                        'text'  => 'La carta premium se genera de forma personalizada y la recibirás en tu correo electrónico en un plazo de 24 a 48 horas.'
+                    ]
+                ],
+                [
+                    '@type' => 'Question',
+                    'name'  => '¿En qué formato entregan la Carta Premium?',
+                    'acceptedAnswer' => [
+                        '@type' => 'Answer',
+                        'text'  => 'Recibirás un documento PDF con diseño exclusivo y un archivo de audio/video con la explicación detallada.'
+                    ]
+                ]
+            ];
+            $faq_schema = [
+                '@context'   => 'https://schema.org',
+                '@type'      => 'FAQPage',
+                'mainEntity' => $faqs
+            ];
+            $schemas[] = $faq_schema;
+        }
+
         $content = $post->post_content;
-        $faqs = [];
+        $faqs_content = [];
 
         // Parse standard summary/details blocks (like Kadence or Gutenberg generic)
         if ( preg_match_all( '/<details[^>]*>(.*?)<\/details>/is', $content, $details_matches ) ) {
             foreach ( $details_matches[1] as $detail ) {
                 if ( preg_match( '/<summary[^>]*>(.*?)<\/summary>(.*?)$/is', $detail, $parts ) ) {
-                    $faqs[] = [
+                    $faqs_content[] = [
                         '@type' => 'Question',
                         'name'  => wp_strip_all_tags( $parts[1] ),
                         'acceptedAnswer' => [
@@ -131,7 +178,7 @@ function atmanme_inject_schema_json_ld() {
             foreach ( $yoast_matches[0] as $section ) {
                 if ( preg_match( '/<strong class="schema-faq-question"[^>]*>(.*?)<\/strong>/is', $section, $q_matches ) &&
                      preg_match( '/<p class="schema-faq-answer"[^>]*>(.*?)<\/p>/is', $section, $a_matches ) ) {
-                    $faqs[] = [
+                    $faqs_content[] = [
                         '@type' => 'Question',
                         'name'  => wp_strip_all_tags( $q_matches[1] ),
                         'acceptedAnswer' => [
@@ -147,7 +194,7 @@ function atmanme_inject_schema_json_ld() {
         // E.g. <h3 class="faq-question">...</h3><p class="faq-answer">...</p>
         if ( preg_match_all( '/<h[2-4][^>]*class="[^"]*faq-question[^"]*"[^>]*>(.*?)<\/h[2-4]>\s*<p[^>]*class="[^"]*faq-answer[^"]*"[^>]*>(.*?)<\/p>/is', $content, $custom_matches ) ) {
             for ( $i = 0; $i < count( $custom_matches[0] ); $i++ ) {
-                $faqs[] = [
+                $faqs_content[] = [
                     '@type' => 'Question',
                     'name'  => wp_strip_all_tags( $custom_matches[1][$i] ),
                     'acceptedAnswer' => [
@@ -158,7 +205,7 @@ function atmanme_inject_schema_json_ld() {
             }
         }
 
-        if ( ! empty( $faqs ) ) {
+        if ( ! empty( $faqs_content ) ) {
             $faq_schema = [
                 '@context'   => 'https://schema.org',
                 '@type'      => 'FAQPage',
