@@ -76,8 +76,7 @@ Your data was saved successfully! You'll receive your birth chart soon.
 </form>
 </div>
 <div class="hero-image">
-<!-- REPLACE: Placeholder for the birth chart image, swap for a real image from the media library -->
-<img src="https://via.placeholder.com/500x500.png?text=Birth+Chart+Sample" alt="Birth Chart Sample">
+<img src="https://atmanme.com/wp-content/uploads/2026/07/hero-2.png" alt="Illustration of a glowing astrological birth chart">
 </div>
 </section>
 

@@ -15,6 +15,7 @@ get_header(); ?>
 <section id="quiz-hero" class="atmanme-section-header" style="text-align: center; padding: 4rem 1rem;">
 <h1 class="page-title" style="font-family: var(--atmanme-font-heading); color: var(--atmanme-color-primary);">What Is Your Astrological Archetype?</h1>
 <p style="font-family: var(--atmanme-font-body); color: var(--atmanme-color-text); max-width: 600px; margin: 1rem auto 2rem;">Discover the dominant energy within you and learn how to use it for your personal growth.</p>
+<img src="https://atmanme.com/wp-content/uploads/2026/07/hero1.png" alt="Illustration of the four astrological archetypes: the Visionary, the Healer, the Guardian, and the Creator" style="max-width: 500px; width: 100%; border-radius: 8px; box-shadow: 0 10px 15px rgba(0,0,0,0.1); margin-bottom: 2rem;">
 <button id="start-quiz-btn" class="atmanme-btn" style="padding: 1rem 2rem; font-size: 1.1rem; border: none; cursor: pointer; border-radius: 4px;">Start the free quiz</button>
 </section>
 
