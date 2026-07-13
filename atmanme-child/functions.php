@@ -459,7 +459,7 @@ function atmanme_handle_carta_astral_submission() {
         wp_die( 'Failed to save lead.' );
     }
 }
- * Archetype Quiz - Register Custom Post Type for Leads
+ /** * Archetype Quiz - Register Custom Post Type for Leads
  */
 function atmanme_register_quiz_lead_cpt() {
     $args = array(
