@@ -354,3 +354,47 @@ function atmanme_sync_seo_tags_from_og($buffer) {
 
     return $buffer;
 }
+
+/**
+ * Update author user_nicename to 'atman' to avoid exposing email.
+ */
+add_action( 'init', 'atmanme_update_author_nicename' );
+function atmanme_update_author_nicename() {
+    if ( get_option( 'atmanme_author_nicename_updated' ) === 'yes' ) {
+        return;
+    }
+
+    $user = get_user_by( 'slug', 'luis-aguirre-reynagmail-com' );
+    if ( $user ) {
+        wp_update_user( array(
+            'ID'            => $user->ID,
+            'user_nicename' => 'atman'
+        ) );
+        update_option( 'atmanme_author_nicename_updated', 'yes' );
+    } else {
+        // Fallback, if slug was different but email is known
+        $user_by_email = get_user_by( 'email', 'luis.aguirre.reyna@gmail.com' );
+        if ( $user_by_email ) {
+            wp_update_user( array(
+                'ID'            => $user_by_email->ID,
+                'user_nicename' => 'atman'
+            ) );
+            update_option( 'atmanme_author_nicename_updated', 'yes' );
+        } else {
+            // Might have already changed, set option anyway to avoid running on every init
+            update_option( 'atmanme_author_nicename_updated', 'yes' );
+        }
+    }
+}
+
+/**
+ * Redirect old author URL to new author URL.
+ */
+add_action( 'template_redirect', 'atmanme_redirect_old_author_url' );
+function atmanme_redirect_old_author_url() {
+    $request_uri = isset( $_SERVER['REQUEST_URI'] ) ? $_SERVER['REQUEST_URI'] : '';
+    if ( strpos( $request_uri, '/author/luis-aguirre-reynagmail-com' ) !== false ) {
+        wp_redirect( home_url( '/author/atman/' ), 301 );
+        die();
+    }
+}
