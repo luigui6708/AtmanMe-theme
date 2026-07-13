@@ -5,6 +5,13 @@
 add_action( 'wp_enqueue_scripts', 'atmanme_child_enqueue_styles' );
 function atmanme_child_enqueue_styles() {
     wp_enqueue_style( 'inspiro-parent-style', get_template_directory_uri() . '/style.css' );
+    wp_enqueue_style( 'atmanme-child-style', get_stylesheet_directory_uri() . '/style.css', array( 'inspiro-parent-style' ), wp_get_theme()->get('Version') );
+}
+
+// Enqueue Google Fonts
+add_action( 'wp_enqueue_scripts', 'atmanme_enqueue_fonts' );
+function atmanme_enqueue_fonts() {
+    wp_enqueue_style( 'atmanme-fonts', 'https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@400;700&display=swap', array(), null );
 }
 
  */
