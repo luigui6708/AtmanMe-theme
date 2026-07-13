@@ -1,10 +1,10 @@
 <?php
-/* Template Name: Audioterapia */
+/* Template Name: Audio Therapy */
 get_header(); ?>
 <main id="primary" class="site-main">
 
 <style>
-/* Scoped styles for Audioterapia landing page */
+/* Scoped styles for Audio Therapy landing page */
 .audioterapia-hero {
 text-align: center;
 padding: 80px 20px;
@@ -187,37 +187,37 @@ scroll-behavior: smooth;
 
 <!-- Hero Section -->
 <section class="audioterapia-hero">
-<h1 class="page-title">Audioterapia & Frecuencias para el Alma</h1>
-<p>Eleva tu vibración, mejora tu enfoque y encuentra la paz con nuestra biblioteca de sonidos guiados.</p>
+<h1 class="page-title">Audio Therapy & Frequencies for the Soul</h1>
+<p>Elevate your vibration, improve your focus, and find peace with our library of guided sounds.</p>
 
-<img src="https://atmanme.com/wp-content/uploads/2026/07/hero-3.png" alt="Ilustración de dos personas meditando con auriculares rodeadas de símbolos de chakras y un cuenco tibetano" class="audioterapia-hero-image">
+<img src="https://atmanme.com/wp-content/uploads/2026/07/hero-3.png" alt="Illustration of two people meditating with headphones surrounded by chakra symbols and a Tibetan singing bowl" class="audioterapia-hero-image">
 
 <div class="audio-player-container">
-<h3>Muestra: Viaje a la Calma Interior</h3>
+<h3>Sample: Journey to Inner Calm</h3>
 <!-- TODO: replace src with real sample audio from media library -->
-<audio controls class="hero-audio track-play-btn" data-track-name="Muestra: Viaje a la Calma Interior">
+<audio controls class="hero-audio track-play-btn" data-track-name="Sample: Journey to Inner Calm">
 <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
-Tu navegador no soporta el elemento de audio.
+Your browser does not support the audio element.
 </audio>
 </div>
 
-<a href="#catalogo" class="atmanme-btn cta-scroll">Explorar catálogo</a>
+<a href="#catalogo" class="atmanme-btn cta-scroll">Explore Catalog</a>
 </section>
 
 <!-- Catalog Section -->
 <section id="catalogo" class="catalog-section">
-<h2 class="atmanme-section-header">Catálogo de Frecuencias</h2>
+<h2 class="atmanme-section-header">Frequency Catalog</h2>
 
-<!-- Categoría: Sueño -->
+<!-- Category: Sleep -->
 <div class="catalog-category">
-<h3><span class="atmanme-category-badge">Sueño Profundo</span></h3>
+<h3><span class="atmanme-category-badge">Deep Sleep</span></h3>
 <div class="catalog-grid">
 <?php
-// Mock tracks for Sueño
+// Mock tracks for Sleep
 $sueno_tracks = [
-['title' => 'Ondas Delta para Insomnio', 'duration' => '60 min', 'icon' => '🌙'],
-['title' => 'Relajación Guiada Nocturna', 'duration' => '45 min', 'icon' => '🛌'],
-['title' => 'Lluvia y Cuencos Tibetanos', 'duration' => '90 min', 'icon' => '🌧️']
+['title' => 'Delta Waves for Insomnia', 'duration' => '60 min', 'icon' => '🌙'],
+['title' => 'Guided Nighttime Relaxation', 'duration' => '45 min', 'icon' => '🛌'],
+['title' => 'Rain and Tibetan Singing Bowls', 'duration' => '90 min', 'icon' => '🌧️']
 ];
 foreach ($sueno_tracks as $track) {
 ?>
@@ -228,7 +228,7 @@ foreach ($sueno_tracks as $track) {
 </div>
 <div class="track-info">
 <h4 class="track-title"><?php echo $track['title']; ?></h4>
-<span class="track-meta">Duración: <?php echo $track['duration']; ?></span>
+<span class="track-meta">Duration: <?php echo $track['duration']; ?></span>
 </div>
 <!-- TODO: replace src with real sample audio from media library for this specific track -->
 <audio controls class="track-play-btn" style="width: 100%; height: 40px;" data-track-name="<?php echo $track['title']; ?>">
@@ -241,15 +241,15 @@ foreach ($sueno_tracks as $track) {
 </div>
 </div>
 
-<!-- Categoría: Enfoque -->
+<!-- Category: Focus -->
 <div class="catalog-category">
-<h3><span class="atmanme-category-badge">Enfoque y Productividad</span></h3>
+<h3><span class="atmanme-category-badge">Focus & Productivity</span></h3>
 <div class="catalog-grid">
 <?php
 $enfoque_tracks = [
-['title' => 'Ondas Gamma para Estudio', 'duration' => '120 min', 'icon' => '🧠'],
-['title' => 'Frecuencia de Flujo (Flow State)', 'duration' => '60 min', 'icon' => '⚡'],
-['title' => 'Ruido Marrón para TDAH', 'duration' => '180 min', 'icon' => '🎯']
+['title' => 'Gamma Waves for Studying', 'duration' => '120 min', 'icon' => '🧠'],
+['title' => 'Flow Frequency (Flow State)', 'duration' => '60 min', 'icon' => '⚡'],
+['title' => 'Brown Noise for ADHD', 'duration' => '180 min', 'icon' => '🎯']
 ];
 foreach ($enfoque_tracks as $track) {
 ?>
@@ -259,7 +259,7 @@ foreach ($enfoque_tracks as $track) {
 </div>
 <div class="track-info">
 <h4 class="track-title"><?php echo $track['title']; ?></h4>
-<span class="track-meta">Duración: <?php echo $track['duration']; ?></span>
+<span class="track-meta">Duration: <?php echo $track['duration']; ?></span>
 </div>
 <audio controls class="track-play-btn" style="width: 100%; height: 40px;" data-track-name="<?php echo $track['title']; ?>">
 <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
@@ -271,15 +271,15 @@ foreach ($enfoque_tracks as $track) {
 </div>
 </div>
 
-<!-- Categoría: Sanación -->
+<!-- Category: Healing -->
 <div class="catalog-category">
-<h3><span class="atmanme-category-badge">Sanación y Equilibrio</span></h3>
+<h3><span class="atmanme-category-badge">Healing & Balance</span></h3>
 <div class="catalog-grid">
 <?php
 $sanacion_tracks = [
-['title' => 'Alineación de Chakras (Solfeggio)', 'duration' => '45 min', 'icon' => '🧘'],
-['title' => '432 Hz - El Tono del Universo', 'duration' => '60 min', 'icon' => '🌿'],
-['title' => 'Liberación de Trauma Emocional', 'duration' => '30 min', 'icon' => '💖']
+['title' => 'Chakra Alignment (Solfeggio)', 'duration' => '45 min', 'icon' => '🧘'],
+['title' => '432 Hz - The Tone of the Universe', 'duration' => '60 min', 'icon' => '🌿'],
+['title' => 'Emotional Trauma Release', 'duration' => '30 min', 'icon' => '💖']
 ];
 foreach ($sanacion_tracks as $track) {
 ?>
@@ -289,7 +289,7 @@ foreach ($sanacion_tracks as $track) {
 </div>
 <div class="track-info">
 <h4 class="track-title"><?php echo $track['title']; ?></h4>
-<span class="track-meta">Duración: <?php echo $track['duration']; ?></span>
+<span class="track-meta">Duration: <?php echo $track['duration']; ?></span>
 </div>
 <audio controls class="track-play-btn" style="width: 100%; height: 40px;" data-track-name="<?php echo $track['title']; ?>">
 <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
@@ -301,15 +301,15 @@ foreach ($sanacion_tracks as $track) {
 </div>
 </div>
 
-<!-- Categoría: Frecuencias -->
+<!-- Category: Frequencies -->
 <div class="catalog-category">
-<h3><span class="atmanme-category-badge">Frecuencias Binaurales</span></h3>
+<h3><span class="atmanme-category-badge">Binaural Frequencies</span></h3>
 <div class="catalog-grid">
 <?php
 $frecuencias_tracks = [
-['title' => 'Ondas Theta para Meditación', 'duration' => '40 min', 'icon' => '🌌'],
-['title' => '528 Hz - Reparación de ADN', 'duration' => '60 min', 'icon' => '🧬'],
-['title' => 'Viaje Astral y Sueños Lúcidos', 'duration' => '90 min', 'icon' => '✨']
+['title' => 'Theta Waves for Meditation', 'duration' => '40 min', 'icon' => '🌌'],
+['title' => '528 Hz - DNA Repair', 'duration' => '60 min', 'icon' => '🧬'],
+['title' => 'Astral Travel and Lucid Dreams', 'duration' => '90 min', 'icon' => '✨']
 ];
 foreach ($frecuencias_tracks as $track) {
 ?>
@@ -319,7 +319,7 @@ foreach ($frecuencias_tracks as $track) {
 </div>
 <div class="track-info">
 <h4 class="track-title"><?php echo $track['title']; ?></h4>
-<span class="track-meta">Duración: <?php echo $track['duration']; ?></span>
+<span class="track-meta">Duration: <?php echo $track['duration']; ?></span>
 </div>
 <audio controls class="track-play-btn" style="width: 100%; height: 40px;" data-track-name="<?php echo $track['title']; ?>">
 <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
@@ -335,50 +335,50 @@ foreach ($frecuencias_tracks as $track) {
 <!-- Science Section -->
 <section class="science-section">
 <div class="science-content">
-<h2 class="atmanme-section-header">El Poder del Sonido en el Cerebro</h2>
+<h2 class="atmanme-section-header">The Power of Sound on the Brain</h2>
 
-<p>La audioterapia y las frecuencias binaurales no son solo conceptos espirituales; tienen bases en la neuroplasticidad y la forma en que nuestro cerebro procesa los estímulos auditivos. Al escuchar tonos ligeramente diferentes en cada oído, el cerebro compensa creando una tercera frecuencia "fantasma" que fomenta cambios en los patrones de ondas cerebrales (entrenamiento de ondas cerebrales).</p>
+<p>Audio therapy and binaural frequencies aren't just spiritual concepts; they're grounded in neuroplasticity and the way our brain processes auditory stimuli. When each ear hears slightly different tones, the brain compensates by creating a third "phantom" frequency that encourages changes in brainwave patterns (brainwave entrainment).</p>
 
 <div class="citation-box">
-<p><strong>TODO: verificar fuente</strong> "La sincronización de ondas cerebrales a través de frecuencias binaurales puede facilitar estados de relajación profunda, reducir la ansiedad y mejorar funciones cognitivas al estimular redes neuronales específicas." - [Espacio para cita de investigación neurológica real]</p>
+<p><strong>TODO: verify source</strong> "Brainwave synchronization through binaural frequencies can facilitate states of deep relaxation, reduce anxiety, and improve cognitive function by stimulating specific neural networks." - [Space for real neurological research citation]</p>
 </div>
 
-<p>Dependiendo de la frecuencia elegida (como las ondas Alfa para la relajación o Gamma para el procesamiento cognitivo superior), podemos guiar nuestra mente hacia estados de consciencia deseados, promoviendo el bienestar emocional, una mejor calidad de sueño y una mayor capacidad de concentración.</p>
+<p>Depending on the frequency chosen (such as Alpha waves for relaxation or Gamma for higher cognitive processing), we can guide our mind toward desired states of consciousness, promoting emotional wellbeing, better sleep quality, and greater focus.</p>
 
 <div class="citation-box">
-<p><strong>TODO: verificar fuente</strong> "La exposición regular a frecuencias sonoras terapéuticas ha demostrado promover la neuroplasticidad, ayudando en el manejo del estrés crónico y mejorando la calidad del sueño reparador." - [Espacio para cita de estudio sobre sueño/estrés real]</p>
+<p><strong>TODO: verify source</strong> "Regular exposure to therapeutic sound frequencies has been shown to promote neuroplasticity, helping manage chronic stress and improving restorative sleep quality." - [Space for real sleep/stress study citation]</p>
 </div>
 </div>
 </section>
 
 <!-- Offer Section -->
 <section class="offer-section">
-<h2 class="atmanme-section-header">Comienza tu Viaje Sonoro</h2>
+<h2 class="atmanme-section-header">Begin Your Sound Journey</h2>
 
 <div class="offer-grid">
 <!-- Individual Track -->
 <div class="offer-card">
-<h3>Pista Individual</h3>
+<h3>Individual Track</h3>
 <div class="offer-price">$X.XX</div>
 <ul class="offer-features">
-<li>Acceso de por vida a la pista elegida</li>
-<li>Descarga en formato de alta calidad (WAV/MP3)</li>
-<li>Uso personal sin conexión</li>
+<li>Lifetime access to the chosen track</li>
+<li>Download in high-quality format (WAV/MP3)</li>
+<li>Personal offline use</li>
 </ul>
-<button class="atmanme-btn offer-cta-btn" data-offer-type="individual">Comprar Pista</button>
+<button class="atmanme-btn offer-cta-btn" data-offer-type="individual">Buy Track</button>
 </div>
 
 <!-- Membership -->
 <div class="offer-card premium">
-<h3>Acceso Ilimitado</h3>
-<div class="offer-price">$XX.XX <span style="font-size: 1rem; font-weight: normal;">/ mes</span></div>
+<h3>Unlimited Access</h3>
+<div class="offer-price">$XX.XX <span style="font-size: 1rem; font-weight: normal;">/ month</span></div>
 <ul class="offer-features">
-<li>Acceso ilimitado a todo el catálogo</li>
-<li>Nuevas frecuencias añadidas cada mes</li>
-<li>Meditaciones exclusivas para miembros</li>
-<li>App móvil para escuchar en cualquier lugar</li>
+<li>Unlimited access to the entire catalog</li>
+<li>New frequencies added every month</li>
+<li>Exclusive meditations for members</li>
+<li>Mobile app to listen anywhere</li>
 </ul>
-<button class="atmanme-btn offer-cta-btn" style="background-color: var(--atmanme-color-accent) !important; color: var(--atmanme-color-white) !important;" data-offer-type="membership">Suscribirse Ahora</button>
+<button class="atmanme-btn offer-cta-btn" style="background-color: var(--atmanme-color-accent) !important; color: var(--atmanme-color-white) !important;" data-offer-type="membership">Subscribe Now</button>
 </div>
 </div>
 </section>
