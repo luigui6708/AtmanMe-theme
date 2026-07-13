@@ -1,5 +1,4 @@
 <?php
- */
 
 // Enqueue parent theme styles
 add_action( 'wp_enqueue_scripts', 'atmanme_child_enqueue_styles' );
@@ -14,7 +13,6 @@ function atmanme_enqueue_fonts() {
     wp_enqueue_style( 'atmanme-fonts', 'https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@400;700&display=swap', array(), null );
 }
 
- */
 add_filter( 'googlesitekit_adsense_tag_blocked', 'atmanme_block_adsense_non_posts' );
 function atmanme_block_adsense_non_posts( $blocked ) {
     if ( ! is_singular( 'post' ) ) {
@@ -23,7 +21,6 @@ function atmanme_block_adsense_non_posts( $blocked ) {
     return $blocked;
 }
 
- */
 add_action('init', 'atmanme_all_reports_rewrite_rule');
 function atmanme_all_reports_rewrite_rule() {
     add_rewrite_rule('^all-reports/?$', 'index.php?all_reports_page=1', 'top');
@@ -66,11 +63,10 @@ function atmanme_all_reports_template_include($template) {
     return $template;
 }
 
- * or by modifying the homepage template part. Since the user said the content might be in a template-part,
- * we should override the template part if it exists, or append a script to find and inject safely.
- * Since parsing HTML block content with regex is unsafe, we use JS injected via wp_footer,
- * but this time targeting the element correctly.
- */
+// or by modifying the homepage template part. Since the user said the content might be in a template-part,
+// we should override the template part if it exists, or append a script to find and inject safely.
+// Since parsing HTML block content with regex is unsafe, we use JS injected via wp_footer,
+// but this time targeting the element correctly.
 add_action('wp_head', 'atmanme_cta_css');
 function atmanme_cta_css() {
     if (is_front_page()) {
@@ -103,7 +99,6 @@ function atmanme_cta_css() {
     }
 }
 
- */
 add_action('wp_footer', 'atmanme_inject_reports_cta_js');
 function atmanme_inject_reports_cta_js() {
     if (!is_front_page()) {
@@ -151,8 +146,7 @@ function atmanme_inject_reports_cta_js() {
     </script>
     <?php
 }
- * Intercepts HTML output to inject the loading attribute.
- */
+// Intercepts HTML output to inject the loading attribute.
 add_action( 'template_redirect', 'atmanme_start_output_buffering' );
 function atmanme_start_output_buffering() {
     // We only buffer output on front-end requests, not admin or feeds
@@ -176,7 +170,6 @@ function atmanme_lazy_load_spotify_iframes( $buffer ) {
         return $matches[0]; // Return unmodified if already lazy loaded
     }, $buffer );
 }
- */
 add_filter( 'locale', 'atmanme_force_english_locale' );
 function atmanme_force_english_locale( $locale ) {
     if ( ! is_admin() ) {
@@ -185,7 +178,6 @@ function atmanme_force_english_locale( $locale ) {
     return $locale;
 }
 
- */
 add_filter( 'wp_nav_menu_objects', 'atmanme_update_nav_menu', 10, 2 );
 function atmanme_update_nav_menu( $items, $args ) {
     $slug_mapping = array(
@@ -219,7 +211,6 @@ function atmanme_update_nav_menu( $items, $args ) {
     return $items;
 }
 
- */
 add_action( 'template_redirect', 'atmanme_redirect_spanish_slugs' );
 function atmanme_redirect_spanish_slugs() {
     global $wp;
@@ -240,7 +231,6 @@ function atmanme_redirect_spanish_slugs() {
     }
 }
 
- */
 add_action( 'init', 'atmanme_update_page_slugs' );
 function atmanme_update_page_slugs() {
     if ( get_option( 'atmanme_slugs_updated_to_english' ) ) {
@@ -267,7 +257,6 @@ function atmanme_update_page_slugs() {
     update_option( 'atmanme_slugs_updated_to_english', 1 );
 }
 
- */
 add_filter('wpseo_title', 'atmanme_custom_yoast_title', 10, 1);
 function atmanme_custom_yoast_title($title) {
     if (is_page('astrology-reports') || (isset($_SERVER['REQUEST_URI']) && strpos($_SERVER['REQUEST_URI'], '/astrology-reports/') !== false)) {
@@ -289,7 +278,6 @@ function atmanme_custom_yoast_metadesc($desc) {
     return $desc;
 }
 
- */
 add_action('wp_footer', 'atmanme_inject_astrology_reports_h1_js');
 function atmanme_inject_astrology_reports_h1_js() {
     if (is_page('astrology-reports') || (isset($_SERVER['REQUEST_URI']) && strpos($_SERVER['REQUEST_URI'], '/astrology-reports/') !== false)) {
@@ -309,8 +297,7 @@ function atmanme_inject_astrology_reports_h1_js() {
 }
 
 
- * Overrides Yoast SEO inconsistent values on all pages by extracting og:title and og:description
- */
+// Overrides Yoast SEO inconsistent values on all pages by extracting og:title and og:description
 add_action('template_redirect', 'atmanme_start_seo_sync_buffering');
 function atmanme_start_seo_sync_buffering() {
     if (!is_admin() && !is_feed()) {
@@ -361,3 +348,7 @@ function atmanme_sync_seo_tags_from_og($buffer) {
 
     return $buffer;
 }
+
+//
+// Require JSON-LD Schema file
+require_once get_stylesheet_directory() . '/inc/schema.php';
