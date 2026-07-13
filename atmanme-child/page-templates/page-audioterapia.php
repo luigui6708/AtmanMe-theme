@@ -69,15 +69,30 @@ grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
 }
 }
 .track-thumbnail {
-background-color: var(--atmanme-color-primary);
-color: var(--atmanme-color-accent);
 height: 160px;
 display: flex;
 align-items: center;
 justify-content: center;
-font-size: 4rem;
-border-radius: 4px;
+font-size: 3.5rem;
+border-radius: 12px;
 margin-bottom: 15px;
+box-shadow: inset 0 0 0 1px rgba(0,0,0,0.03);
+}
+.track-thumbnail.cat-sleep {
+background: linear-gradient(135deg, var(--atmanme-color-primary) 0%, var(--atmanme-color-bg) 100%);
+color: var(--atmanme-color-white);
+}
+.track-thumbnail.cat-focus {
+background: linear-gradient(135deg, var(--atmanme-color-accent) 0%, var(--atmanme-color-bg) 100%);
+color: var(--atmanme-color-white);
+}
+.track-thumbnail.cat-healing {
+background: linear-gradient(135deg, var(--atmanme-color-primary) 0%, var(--atmanme-color-accent) 100%);
+color: var(--atmanme-color-white);
+}
+.track-thumbnail.cat-frequencies {
+background: linear-gradient(135deg, var(--atmanme-color-accent) 0%, var(--atmanme-color-primary) 100%);
+color: var(--atmanme-color-white);
 }
 .track-info {
 margin-bottom: 15px;
@@ -112,8 +127,58 @@ background-color: var(--atmanme-color-bg);
 border-left: 4px solid var(--atmanme-color-accent);
 padding: 15px 20px;
 margin-bottom: 20px;
-font-style: italic;
 border-radius: 0 4px 4px 0;
+}
+.citation-box p {
+margin-bottom: 0;
+line-height: 1.6;
+}
+
+.testimonials-section {
+padding: 60px 20px;
+max-width: 1000px;
+margin: 0 auto;
+}
+.testimonials-grid {
+display: grid;
+grid-template-columns: 1fr;
+gap: 30px;
+}
+@media (min-width: 768px) {
+.testimonials-grid {
+grid-template-columns: repeat(3, 1fr);
+}
+}
+.testimonial-card {
+background-color: var(--atmanme-color-white);
+border-radius: 8px;
+padding: 30px 25px;
+box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+text-align: center;
+}
+.testimonial-avatar {
+width: 56px;
+height: 56px;
+border-radius: 50%;
+background-color: var(--atmanme-color-primary);
+color: var(--atmanme-color-white);
+display: flex;
+align-items: center;
+justify-content: center;
+font-weight: bold;
+margin: 0 auto 15px;
+font-family: var(--atmanme-font-heading);
+}
+.testimonial-quote {
+font-style: italic;
+color: var(--atmanme-color-text);
+margin-bottom: 15px;
+line-height: 1.6;
+}
+.testimonial-name {
+font-weight: bold;
+color: var(--atmanme-color-primary);
+font-size: 0.95rem;
 }
 
 .offer-section {
@@ -176,6 +241,36 @@ position: absolute;
 left: 0;
 font-weight: bold;
 }
+.offer-card a.offer-cta-btn {
+display: inline-block;
+text-decoration: none;
+}
+
+.faq-section {
+background-color: var(--atmanme-color-bg);
+padding: 60px 20px;
+border-top: 1px solid rgba(0,0,0,0.05);
+}
+.faq-content {
+max-width: 800px;
+margin: 0 auto;
+}
+.faq-item {
+background-color: var(--atmanme-color-white);
+border-radius: 8px;
+padding: 20px 25px;
+margin-bottom: 15px;
+box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+}
+.faq-item h4 {
+margin: 0 0 10px;
+color: var(--atmanme-color-primary);
+}
+.faq-item p {
+margin: 0;
+line-height: 1.6;
+color: var(--atmanme-color-text);
+}
 
 /* Utility */
 html {
@@ -204,6 +299,25 @@ Your browser does not support the audio element.
 <a href="#catalogo" class="atmanme-btn cta-scroll">Explore Catalog</a>
 </section>
 
+<!-- Science Section (moved up: educate before selling) -->
+<section class="science-section">
+<div class="science-content">
+<h2 class="atmanme-section-header">The Power of Sound on the Brain</h2>
+
+<p>Audio therapy and binaural frequencies aren't just spiritual concepts; they're grounded in how our brain processes auditory stimuli. When each ear hears a slightly different tone, the brain compensates by creating a third "phantom" frequency — a well-documented phenomenon known as brainwave entrainment.</p>
+
+<div class="citation-box">
+<p><strong>What this means in practice:</strong> brainwave entrainment is an active area of research, and results vary from person to person. Consistency matters more than any single session — a few short listens a week tend to help more than one long session now and then.</p>
+</div>
+
+<p>Depending on the frequency chosen (such as Alpha waves for relaxation or Gamma for higher cognitive processing), sound can support your mind toward a desired state — helping with relaxation, better sleep, or sharper focus.</p>
+
+<div class="citation-box">
+<p><strong>A note on expectations:</strong> we don't publish invented statistics or studies we haven't verified — you deserve better than that. If stress, anxiety, or sleep are affecting your daily life in a serious way, please also talk to a qualified professional. Sound can support your wellbeing, but it isn't a medical treatment.</p>
+</div>
+</div>
+</section>
+
 <!-- Catalog Section -->
 <section id="catalogo" class="catalog-section">
 <h2 class="atmanme-section-header">Frequency Catalog</h2>
@@ -222,8 +336,8 @@ $sueno_tracks = [
 foreach ($sueno_tracks as $track) {
 ?>
 <article class="atmanme-blog-card">
-<!-- TODO: Replace background and emoji with real thumbnails -->
-<div class="track-thumbnail">
+<!-- TODO: replace icon-on-gradient with a commissioned illustration once available -->
+<div class="track-thumbnail cat-sleep">
 <?php echo $track['icon']; ?>
 </div>
 <div class="track-info">
@@ -254,7 +368,7 @@ $enfoque_tracks = [
 foreach ($enfoque_tracks as $track) {
 ?>
 <article class="atmanme-blog-card">
-<div class="track-thumbnail">
+<div class="track-thumbnail cat-focus">
 <?php echo $track['icon']; ?>
 </div>
 <div class="track-info">
@@ -284,7 +398,7 @@ $sanacion_tracks = [
 foreach ($sanacion_tracks as $track) {
 ?>
 <article class="atmanme-blog-card">
-<div class="track-thumbnail">
+<div class="track-thumbnail cat-healing">
 <?php echo $track['icon']; ?>
 </div>
 <div class="track-info">
@@ -314,7 +428,7 @@ $frecuencias_tracks = [
 foreach ($frecuencias_tracks as $track) {
 ?>
 <article class="atmanme-blog-card">
-<div class="track-thumbnail">
+<div class="track-thumbnail cat-frequencies">
 <?php echo $track['icon']; ?>
 </div>
 <div class="track-info">
@@ -332,21 +446,25 @@ foreach ($frecuencias_tracks as $track) {
 </div>
 </section>
 
-<!-- Science Section -->
-<section class="science-section">
-<div class="science-content">
-<h2 class="atmanme-section-header">The Power of Sound on the Brain</h2>
-
-<p>Audio therapy and binaural frequencies aren't just spiritual concepts; they're grounded in neuroplasticity and the way our brain processes auditory stimuli. When each ear hears slightly different tones, the brain compensates by creating a third "phantom" frequency that encourages changes in brainwave patterns (brainwave entrainment).</p>
-
-<div class="citation-box">
-<p><strong>TODO: verify source</strong> "Brainwave synchronization through binaural frequencies can facilitate states of deep relaxation, reduce anxiety, and improve cognitive function by stimulating specific neural networks." - [Space for real neurological research citation]</p>
+<!-- Testimonials Section -->
+<!-- TODO: replace all three placeholder testimonials below with real customer quotes before this section goes live. Avoid stock photos of "customers" — initials-only avatars are used intentionally here and can stay even with real quotes. -->
+<section class="testimonials-section">
+<h2 class="atmanme-section-header">What Our Community Says</h2>
+<div class="testimonials-grid">
+<div class="testimonial-card">
+<div class="testimonial-avatar">?</div>
+<p class="testimonial-quote">"[Placeholder — add a real quote about how audio therapy helped with sleep before this goes live]"</p>
+<p class="testimonial-name">Sample customer — replace with real testimonial</p>
 </div>
-
-<p>Depending on the frequency chosen (such as Alpha waves for relaxation or Gamma for higher cognitive processing), we can guide our mind toward desired states of consciousness, promoting emotional wellbeing, better sleep quality, and greater focus.</p>
-
-<div class="citation-box">
-<p><strong>TODO: verify source</strong> "Regular exposure to therapeutic sound frequencies has been shown to promote neuroplasticity, helping manage chronic stress and improving restorative sleep quality." - [Space for real sleep/stress study citation]</p>
+<div class="testimonial-card">
+<div class="testimonial-avatar">?</div>
+<p class="testimonial-quote">"[Placeholder — add a real quote about focus or stress relief before this goes live]"</p>
+<p class="testimonial-name">Sample customer — replace with real testimonial</p>
+</div>
+<div class="testimonial-card">
+<div class="testimonial-avatar">?</div>
+<p class="testimonial-quote">"[Placeholder — add a real quote about the Unlimited Access membership before this goes live]"</p>
+<p class="testimonial-name">Sample customer — replace with real testimonial</p>
 </div>
 </div>
 </section>
@@ -365,7 +483,8 @@ foreach ($frecuencias_tracks as $track) {
 <li>Download in high-quality format (WAV/MP3)</li>
 <li>Personal offline use</li>
 </ul>
-<button class="atmanme-btn offer-cta-btn" data-offer-type="individual">Buy Track</button>
+<!-- TODO: replace mailto with a real checkout/payment link once processing is set up. Using an interim contact email as a functional stopgap so the CTA isn't dead. -->
+<a href="mailto:hello@atmanme.com?subject=I'd%20like%20to%20buy%20an%20audio%20track" class="atmanme-btn offer-cta-btn" data-offer-type="individual">Buy Track</a>
 </div>
 
 <!-- Membership -->
@@ -378,7 +497,40 @@ foreach ($frecuencias_tracks as $track) {
 <li>Exclusive meditations for members</li>
 <li>Mobile app to listen anywhere</li>
 </ul>
-<button class="atmanme-btn offer-cta-btn" style="background-color: var(--atmanme-color-accent) !important; color: var(--atmanme-color-white) !important;" data-offer-type="membership">Subscribe Now</button>
+<!-- TODO: replace mailto with a real subscription checkout link once processing is set up. -->
+<a href="mailto:hello@atmanme.com?subject=I'd%20like%20to%20subscribe%20to%20Unlimited%20Access" class="atmanme-btn offer-cta-btn" style="background-color: var(--atmanme-color-accent) !important; color: var(--atmanme-color-white) !important;" data-offer-type="membership">Subscribe Now</a>
+</div>
+</div>
+</section>
+
+<!-- FAQ Section -->
+<section class="faq-section">
+<div class="faq-content">
+<h2 class="atmanme-section-header">Frequently Asked Questions</h2>
+
+<div class="faq-item">
+<h4>Do I need headphones for binaural frequencies?</h4>
+<p>Yes. Binaural beats only work with stereo headphones, since each ear needs to receive a slightly different tone at the same time.</p>
+</div>
+
+<div class="faq-item">
+<h4>How often should I listen?</h4>
+<p>Most people notice more benefit from short, consistent sessions — 15 to 30 minutes, a few times a week — than from one long session every once in a while.</p>
+</div>
+
+<div class="faq-item">
+<h4>Is this a replacement for therapy or medical treatment?</h4>
+<p>No. Audio therapy can support relaxation and focus, but it isn't a substitute for professional mental health or medical care. If you're struggling, please also reach out to a qualified professional.</p>
+</div>
+
+<div class="faq-item">
+<h4>Can I download tracks for offline use?</h4>
+<p>Yes. Individually purchased tracks are available for download in WAV or MP3 format for personal offline use.</p>
+</div>
+
+<div class="faq-item">
+<h4>What's the difference between an individual track and Unlimited Access?</h4>
+<p>An individual track gives you lifetime access to that one track. Unlimited Access unlocks the entire catalog, plus new frequencies added every month.</p>
 </div>
 </div>
 </section>
@@ -421,7 +573,7 @@ dataLayer.push({
 console.log('Analytics Event [offer_click]: ', offerType);
 }
 
-// Note: Prevent default or add checkout logic here in the future
+// Note: offerBtns are now real mailto links (see TODOs above); replace with real checkout logic when payment processing is ready.
 });
 });
 });
