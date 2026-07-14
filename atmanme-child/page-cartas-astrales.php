@@ -139,6 +139,7 @@ Your data was saved successfully! You'll receive your birth chart soon.
 </div>
 <div class="comparison-col premium">
 <h3>Premium Chart</h3>
+<div style="text-align:center;font-size:1.8rem;font-weight:700;color:var(--atmanme-color-accent);margin-bottom:15px;">$25 <span style="font-size:0.9rem;font-weight:400;color:var(--atmanme-color-text);">one-time</span></div>
 <ul>
 <li>✅ Planet positions</li>
 <li>✅ Sun, moon and rising sign</li>
