@@ -105,23 +105,18 @@ Your data was saved successfully! You'll receive your birth chart soon.
 <!-- Social Proof Section -->
 <section class="social-proof-section">
 <h2 class="atmanme-section-header">What Our Users Say</h2>
+<p style="text-align:center;color:#B08D57;font-size:0.85rem;font-style:italic;max-width:520px;margin:0 auto 30px;">Placeholder space — real testimonials will replace these once we start collecting them.</p>
 <div class="testimonials">
 <div class="testimonial">
-<!-- REPLACE: Placeholder for testimonial photo, swap for a real testimonial -->
-<img src="https://via.placeholder.com/80.png?text=M" alt="Photo of user Maria L.">
-<h4>Maria L.</h4>
-<p>"My birth chart helped me understand things about myself I couldn't explain before. Highly recommended!"</p>
+<div style="width:80px;height:80px;border-radius:50%;background:rgba(176,141,87,0.15);border:1px solid rgba(176,141,87,0.4);display:flex;align-items:center;justify-content:center;margin:0 auto 12px;color:#B08D57;font-size:1.4rem;">?</div>
+<h4>Sample customer — replace with real testimonial</h4>
+<p>"[Placeholder — add a real quote about the birth chart experience before this goes live]"</p>
 </div>
 <div class="testimonial">
-<!-- REPLACE: Placeholder for testimonial photo, swap for a real testimonial -->
-<img src="https://via.placeholder.com/80.png?text=C" alt="Photo of user Carlos G.">
-<h4>Carlos G.</h4>
-<p>"Excellent analysis. The premium report is worth every penny for the clarity it brings."</p>
+<div style="width:80px;height:80px;border-radius:50%;background:rgba(176,141,87,0.15);border:1px solid rgba(176,141,87,0.4);display:flex;align-items:center;justify-content:center;margin:0 auto 12px;color:#B08D57;font-size:1.4rem;">?</div>
+<h4>Sample customer — replace with real testimonial</h4>
+<p>"[Placeholder — add a real quote about the premium report experience]"</p>
 </div>
-</div>
-<!-- In the future, connect to real database data -->
-<div class="counter">
-+5,000 charts generated
 </div>
 </section>
 
@@ -208,4 +203,22 @@ alert('Please fill in all fields.');
 });
 </script>
 
+<script>
+(function(){
+var params = new URLSearchParams(window.location.search);
+var fecha = params.get('ca_fecha');
+var hora = params.get('ca_hora');
+var lugar = params.get('ca_lugar');
+if (fecha || hora || lugar) {
+var elFecha = document.getElementById('ca_fecha');
+var elHora = document.getElementById('ca_hora');
+var elLugar = document.getElementById('ca_lugar');
+if (fecha && elFecha) elFecha.value = fecha;
+if (hora && elHora) elHora.value = hora;
+if (lugar && elLugar) elLugar.value = lugar;
+var formEl = document.getElementById('carta-astral-form');
+if (formEl) { formEl.scrollIntoView({behavior:'smooth', block:'center'}); }
+}
+})();
+</script>
 <?php get_footer(); ?>
