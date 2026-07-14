@@ -10,6 +10,94 @@ get_header(); ?>
 
 <div id="primary" class="content-area">
 <main id="main" class="site-main" role="main">
+<style>
+#main.site-main {
+background-color: var(--atmanme-color-bg, #F4F1EC);
+padding: 40px 20px;
+}
+#main.site-main h1,
+#main.site-main h2,
+#main.site-main h3 {
+color: var(--atmanme-color-primary, #1B2A4A) !important;
+}
+#main.site-main p {
+color: var(--atmanme-color-text, #333333) !important;
+}
+#main.site-main button {
+background-color: var(--atmanme-color-primary, #1B2A4A) !important;
+color: #ffffff !important;
+border: none !important;
+}
+#main.site-main a:not(.atmanme-btn) {
+color: var(--atmanme-color-accent, #B08D57);
+}
+.aq-testimonials-section {
+background-color: #ffffff;
+padding: 40px;
+border-radius: 8px;
+margin: 60px 0;
+box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+max-width: 1000px;
+margin-left: auto;
+margin-right: auto;
+}
+.aq-testimonials-note {
+text-align: center;
+color: var(--atmanme-color-accent, #B08D57);
+font-size: 0.85rem;
+font-style: italic;
+max-width: 520px;
+margin: 0 auto 30px;
+}
+.aq-testimonials-grid {
+display: flex;
+flex-wrap: wrap;
+gap: 20px;
+justify-content: center;
+}
+.aq-testimonial {
+flex: 1;
+min-width: 250px;
+text-align: center;
+}
+.aq-testimonial-avatar {
+width: 80px;
+height: 80px;
+border-radius: 50%;
+background-color: rgba(176,141,87,0.15);
+border: 1px solid rgba(176,141,87,0.4);
+display: flex;
+align-items: center;
+justify-content: center;
+margin: 0 auto 15px;
+color: var(--atmanme-color-accent, #B08D57);
+font-size: 1.4rem;
+}
+.aq-faq-section {
+max-width: 1000px;
+margin: 0 auto 60px;
+}
+.aq-faq-accordion details {
+background-color: #ffffff;
+margin-bottom: 10px;
+border-radius: 4px;
+box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+text-align: left;
+padding: 0;
+}
+.aq-faq-accordion summary {
+padding: 15px;
+font-weight: bold;
+cursor: pointer;
+color: var(--atmanme-color-primary, #1B2A4A);
+}
+.aq-faq-accordion .aq-faq-answer {
+padding: 0 15px 15px;
+margin: 0;
+color: var(--atmanme-color-text, #333333);
+}
+</style>
+
 
 <!-- HERO SECTION -->
 <section id="quiz-hero" class="atmanme-section-header" style="text-align: center; padding: 4rem 1rem;">
@@ -65,6 +153,45 @@ get_header(); ?>
 </div>
 </section>
 
+
+<section class="aq-testimonials-section">
+<h2 class="atmanme-section-header" style="text-align:center;">What Our Users Say</h2>
+<p class="aq-testimonials-note">Placeholder space — real testimonials will replace these once we start collecting them.</p>
+<div class="aq-testimonials-grid">
+<div class="aq-testimonial">
+<div class="aq-testimonial-avatar">?</div>
+<h4>Sample customer — replace with real testimonial</h4>
+<p>"[Placeholder — add a real quote about the archetype quiz experience before this goes live]"</p>
+</div>
+<div class="aq-testimonial">
+<div class="aq-testimonial-avatar">?</div>
+<h4>Sample customer — replace with real testimonial</h4>
+<p>"[Placeholder — add a real quote about the full report experience]"</p>
+</div>
+</div>
+</section>
+
+<section class="aq-faq-section">
+<h2 class="atmanme-section-header" style="text-align:center;">Frequently Asked Questions</h2>
+<div class="aq-faq-accordion">
+<details>
+<summary>How long does the quiz take?</summary>
+<p class="aq-faq-answer">Just a couple of minutes — it's a short set of questions designed to reveal your dominant archetype quickly.</p>
+</details>
+<details>
+<summary>Is the quiz free?</summary>
+<p class="aq-faq-answer">Yes, the quiz itself is completely free. You can request a deeper report by email if you'd like more detail.</p>
+</details>
+<details>
+<summary>What do I get in the full report?</summary>
+<p class="aq-faq-answer">An in-depth analysis of your archetype, including your core strengths and areas for growth, sent directly to your email.</p>
+</details>
+<details>
+<summary>Can my archetype change over time?</summary>
+<p class="aq-faq-answer">Your dominant archetype tends to be stable, but which traits you lean into can shift as you grow and go through different life stages.</p>
+</details>
+</div>
+</section>
 </main>
 </div>
 
